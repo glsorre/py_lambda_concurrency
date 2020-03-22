@@ -48,16 +48,16 @@ def process_cpu_handler_no_executor():
     data = [5000 for x in range(10000)]
     pool = Pool(5)
     pool.map(cpu_bounded_func, data)
-    pool.close()
+    #pool.close()
 
 if __name__ == "__main__":
     count = 1
-    print("*** IO Task ***")
-    print("Sequential", timeit(sequential_io_handler, number=count), getrusage(RUSAGE_SELF).ru_maxrss)
-    print("Threaded", timeit(thread_io_handler, number=count), getrusage(RUSAGE_SELF).ru_maxrss)
-    print("Multiprocess", timeit(process_io_handler, number=count), getrusage(RUSAGE_SELF).ru_maxrss)
-    print("*** CPU Task ***")
-    print("Sequential", timeit(sequential_cpu_handler, number=count), getrusage(RUSAGE_SELF).ru_maxrss)
-    print("Threaded", timeit(thread_cpu_handler, number=count), getrusage(RUSAGE_SELF).ru_maxrss)
-    print("Multiprocess", timeit(process_cpu_handler, number=count), getrusage(RUSAGE_SELF).ru_maxrss)
+    # print("*** IO Task ***")
+    # print("Sequential", timeit(sequential_io_handler, number=count), getrusage(RUSAGE_SELF).ru_maxrss)
+    # print("Threaded", timeit(thread_io_handler, number=count), getrusage(RUSAGE_SELF).ru_maxrss)
+    # print("Multiprocess", timeit(process_io_handler, number=count), getrusage(RUSAGE_SELF).ru_maxrss)
+    # print("*** CPU Task ***")
+    # print("Sequential", timeit(sequential_cpu_handler, number=count), getrusage(RUSAGE_SELF).ru_maxrss)
+    # print("Threaded", timeit(thread_cpu_handler, number=count), getrusage(RUSAGE_SELF).ru_maxrss)
+    # print("Multiprocess", timeit(process_cpu_handler, number=count), getrusage(RUSAGE_SELF).ru_maxrss)
     print("Multiprocess no executor", timeit(process_cpu_handler_no_executor, number=count), getrusage(RUSAGE_SELF).ru_maxrss)
