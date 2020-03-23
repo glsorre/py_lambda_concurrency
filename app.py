@@ -1,8 +1,5 @@
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 from math import factorial
-from multiprocessing import Process
-from queue import Queue
-from random import randint
 from timeit import timeit
 from urllib import request
 
@@ -51,15 +48,31 @@ def process_cpu_handler_no_executor(event={}, lambda_context={}):
     data = [5000 for x in range(5000)]
     pool = Pool(5)
     pool.map(cpu_bounded_func, data)
+
+def lambda_handler(event, lambda_context):
+    if event["io_sequential"] == True:
+        sequential_io_handler()
+    elif event["io_threaded"] == True:
+        thread_io_handler()
+    elif event["io_process"] == True:
+        process_io_handler()
+    if event["cpu_sequential"] == True:
+        sequential_cpu_handler()
+    elif event["cpu_threaded"] == True:
+        thread_cpu_handler()
+    elif event["cpu_process"] == True:
+        process_cpu_handler()
+    else:
+        process_cpu_handler_no_executor()
     
 if __name__ == "__main__":
     count = 1
-    # print("*** IO Task ***")
-    # print("Sequential", timeit(sequential_io_handler, number=count))
-    # print("Threaded", timeit(thread_io_handler, number=count))
-    # print("Multiprocess", timeit(process_io_handler, number=count))
-    # print("*** CPU Task ***")
-    # print("Sequential", timeit(sequential_cpu_handler, number=count))
-    # print("Threaded", timeit(thread_cpu_handler, number=count))
-    # print("Multiprocess", timeit(process_cpu_handler, number=count))
+    print("*** IO Task ***")
+    print("Sequential", timeit(sequential_io_handler, number=count))
+    print("Threaded", timeit(thread_io_handler, number=count))
+    print("Multiprocess", timeit(process_io_handler, number=count))
+    print("*** CPU Task ***")
+    print("Sequential", timeit(sequential_cpu_handler, number=count))
+    print("Threaded", timeit(thread_cpu_handler, number=count))
+    print("Multiprocess", timeit(process_cpu_handler, number=count))
     print("Multiprocess no executor", timeit(process_cpu_handler_no_executor, number=count))
