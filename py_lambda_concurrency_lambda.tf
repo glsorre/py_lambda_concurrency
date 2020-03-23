@@ -1,3 +1,9 @@
+provider "aws" {
+  region  = "eu-west-1"
+  shared_credentials_file = "~/.aws/config"
+  version = "~> 2.54"
+}
+
 resource "aws_iam_role" "py_lambda_concurrency_role" {
   name = "py_lambda_concurrency_role"
 
@@ -24,11 +30,9 @@ resource "aws_lambda_function" "py_lambda_concurrency_lambda" {
   role          = "${aws_iam_role.py_lambda_concurrency_role.arn}"
   handler       = "app.lambda_handler"
 
-  # The filebase64sha256() function is available in Terraform 0.11.12 and later
-  # For Terraform 0.11.11 and earlier, use the base64sha256() function and the file() function:
-  # source_code_hash = "${base64sha256(file("lambda_function_payload.zip"))}"
   source_code_hash = "${filebase64sha256("py_lambda_concurrency_lambda.zip")}"
 
-  memory_size = 1024
+  timeout = "120"
+  memory_size = "2560"
   runtime = "python3.8"
 }

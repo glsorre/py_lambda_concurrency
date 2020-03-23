@@ -131,5 +131,10 @@ dmypy.json
 # VSCode folder
 .vscode
 
+#  Terraform folder
+.terraform
+*.tfstate
+*.tfstate.backup
+
 # Zip files
 *.zip

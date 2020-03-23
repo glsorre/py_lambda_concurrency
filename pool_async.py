@@ -24,7 +24,7 @@ class AsyncProcess(Process):
         super().__init__(target=target, args=args)
 
     def get_result(self, future):
-        super(AsyncProcess, self).join()
+        super(AsyncProcess, self)._popen.wait()
         future.set_result(self.results[self.id])
 
     async def wait(self):

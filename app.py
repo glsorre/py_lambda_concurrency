@@ -50,17 +50,17 @@ def process_cpu_handler_no_executor(event={}, lambda_context={}):
     pool.map(cpu_bounded_func, data)
 
 def lambda_handler(event, lambda_context):
-    if event["io_sequential"] == True:
+    if event.get("io_sequential", "False") == "True":
         sequential_io_handler()
-    elif event["io_threaded"] == True:
+    elif event.get("io_threaded", "False") == "True":
         thread_io_handler()
-    elif event["io_process"] == True:
+    elif event.get("io_process", "False") == "True":
         process_io_handler()
-    if event["cpu_sequential"] == True:
+    elif event.get("cpu_sequential", "False") == "True":
         sequential_cpu_handler()
-    elif event["cpu_threaded"] == True:
+    elif event.get("cpu_threaded", "False") == "True":
         thread_cpu_handler()
-    elif event["cpu_process"] == True:
+    elif event.get("cpu_process", "False") == "True":
         process_cpu_handler()
     else:
         process_cpu_handler_no_executor()
