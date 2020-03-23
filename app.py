@@ -11,6 +11,11 @@ from pool_async import Pool
 def cpu_bounded_func(n):
     return factorial(n)
 
+def cpu_bounded_func_result(n, results, index):
+    result = factorial(n)
+    results[index] = result
+    return result
+
 def io_bounded_func(url):
     return request.urlopen(url)
 
@@ -45,7 +50,7 @@ def process_cpu_handler(event={}, lambda_context={}):
 def process_cpu_handler_no_executor(event={}, lambda_context={}):
     data = [5000 for x in range(500)]
     pool = Pool(5)
-    pool.map(cpu_bounded_func, data)
+    pool.map(cpu_bounded_func_result, data)
 
 if __name__ == "__main__":
     count = 1
