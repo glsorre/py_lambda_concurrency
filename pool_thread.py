@@ -1,19 +1,14 @@
-import logging
-
 from multiprocessing import Process
 from threading import current_thread, Thread
 from queue import Queue
 
-logging.basicConfig(level=logging.INFO)
-
 def _run(q):
     while True:
-        logging.info(f"{current_thread().name} {q.qsize()}")
         p = q.get()
         if p is None:
             break
         p.start()
-        p.join()
+        p._popen.wait()
         q.task_done()
 
 class Pool:
@@ -37,5 +32,4 @@ class Pool:
             self.queue.put(None)
 
         for t in self.threads:
-            logging.info(f"{t.name} JOINED")
             t.join()
