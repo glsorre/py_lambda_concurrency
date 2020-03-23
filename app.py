@@ -1,5 +1,3 @@
-import cProfile
-
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 from math import factorial
 from multiprocessing import Process
@@ -8,7 +6,7 @@ from random import randint
 from timeit import timeit
 from urllib import request
 
-from pool import Pool
+from pool_async import Pool
 
 def cpu_bounded_func(n):
     return factorial(n)
@@ -45,7 +43,7 @@ def process_cpu_handler(event={}, lambda_context={}):
     executor.shutdown()
 
 def process_cpu_handler_no_executor(event={}, lambda_context={}):
-    data = [randint(100, 5000) for x in range(10000)]
+    data = [5000 for x in range(500)]
     pool = Pool(5)
     pool.map(cpu_bounded_func, data)
 
