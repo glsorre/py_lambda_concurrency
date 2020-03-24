@@ -8,7 +8,7 @@ from pool_thread import Pool
 CPU_TOT_NUMBER = 20000
 CPU_FUNC_NUMBER = 5000
 CPU_POOL_SIZE = 24
-IO_TOT_NUMBER = 10
+IO_TOT_NUMBER = 24
 IO_POOL_SIZE = 12
 
 def cpu_bounded_func(n):
@@ -50,6 +50,11 @@ def process_cpu_handler(event={}, lambda_context={}):
     executor.map(cpu_bounded_func, [CPU_FUNC_NUMBER for x in range(CPU_TOT_NUMBER)])
     executor.shutdown()
 
+def process_io_handler_no_executor(event={}, lambda_context={}):
+    data = ['https://docs.python.org/3/' for x in range(IO_TOT_NUMBER)]
+    pool = Pool(IO_POOL_SIZE)
+    pool.map(io_bounded_func, data)
+
 def process_cpu_handler_no_executor(event={}, lambda_context={}):
     data = [CPU_FUNC_NUMBER for x in range(CPU_TOT_NUMBER)]
     pool = Pool(CPU_POOL_SIZE)
@@ -57,18 +62,28 @@ def process_cpu_handler_no_executor(event={}, lambda_context={}):
 
 def lambda_handler(event, lambda_context):
     if event.get("io_sequential", "False") == "True":
+        print("*** io_sequential")
         sequential_io_handler()
     elif event.get("io_threaded", "False") == "True":
+        print("*** io_threaded")
         thread_io_handler()
     elif event.get("io_process", "False") == "True":
+        print("*** io_process")
         process_io_handler()
+    elif event.get("io_process_no_executor", "False") == "True":
+        print("*** io_process_no_executor")
+        process_io_handler_no_executor()
     elif event.get("cpu_sequential", "False") == "True":
+        print("*** cpu_sequential")
         sequential_cpu_handler()
     elif event.get("cpu_threaded", "False") == "True":
+        print("*** cpu_threaded")
         thread_cpu_handler()
     elif event.get("cpu_process", "False") == "True":
+        print("*** cpu_process")
         process_cpu_handler()
     else:
+        print("*** cpu_process_no_executor")
         process_cpu_handler_no_executor()
     
 if __name__ == "__main__":
