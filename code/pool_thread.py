@@ -31,5 +31,6 @@ class Pool:
         for i in range(self.max_workers):
             self.queue.put(None)
 
+    def close(self):
         for t in self.threads:
             t.join()

@@ -32,7 +32,7 @@ resource "aws_lambda_function" "py_lambda_concurrency_lambda" {
 
   source_code_hash = "${filebase64sha256("py_lambda_concurrency_lambda.zip")}"
 
-  timeout = "120"
+  timeout = "900"
   memory_size = "2560"
   runtime = "python3.8"
 }

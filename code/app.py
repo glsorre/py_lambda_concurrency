@@ -1,30 +1,27 @@
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
-from math import factorial
+from random import randint
+from sort import selection_sort as sort
 from timeit import timeit
 from urllib import request
 
 from pool_thread import Pool
 
-CPU_TOT_NUMBER = 20000
-CPU_FUNC_NUMBER = 5000
-CPU_POOL_SIZE = 24
-IO_TOT_NUMBER = 24
-IO_POOL_SIZE = 12
+CPU_TOT_NUMBER = 10
+CPU_FUNC_NUMBER = [randint(1, 10000) for x in range(10000)]
+CPU_POOL_SIZE = 4
+IO_TOT_NUMBER = 12
+IO_POOL_SIZE = 4
+IO_TASK_URL = 'https://docs.python.org/3/'
 
-def cpu_bounded_func(n):
-    return factorial(n)
-
-def cpu_bounded_func_result(n, results, index):
-    result = factorial(n)
-    results[index] = result
-    return result
-
-def io_bounded_func(url):
+def io_bounded_func(url=IO_TASK_URL):
     return request.urlopen(url)
+
+def cpu_bounded_func(n=CPU_FUNC_NUMBER):
+    return sort(n)
 
 def sequential_io_handler(event={}, lambda_context={}):
     for url in range(IO_TOT_NUMBER):
-        io_bounded_func('https://docs.python.org/3/')
+        io_bounded_func(IO_TASK_URL)
 
 def sequential_cpu_handler(event={}, lambda_context={}):
     for i in range(CPU_TOT_NUMBER):
@@ -32,17 +29,17 @@ def sequential_cpu_handler(event={}, lambda_context={}):
 
 def thread_io_handler(event={}, lambda_context={}):
     executor = ThreadPoolExecutor(max_workers=IO_POOL_SIZE)
-    executor.map(io_bounded_func, ['https://docs.python.org/3/' for x in range(IO_TOT_NUMBER)])
+    executor.map(io_bounded_func, [IO_TASK_URL for x in range(IO_TOT_NUMBER)])
     executor.shutdown()
 
 def thread_cpu_handler(event={}, lambda_context={}):
-    executor = ThreadPoolExecutor(max_workers=5)
-    executor.map(cpu_bounded_func, [CPU_TOT_NUMBER for x in range(CPU_FUNC_NUMBER)])
+    executor = ThreadPoolExecutor(max_workers=CPU_POOL_SIZE)
+    executor.map(cpu_bounded_func, [CPU_FUNC_NUMBER for x in range(CPU_TOT_NUMBER)])
     executor.shutdown()
 
 def process_io_handler(event={}, lambda_context={}):
     executor = ProcessPoolExecutor(max_workers=IO_POOL_SIZE)
-    executor.map(io_bounded_func, ['https://docs.python.org/3/' for x in range(IO_TOT_NUMBER)])
+    executor.map(io_bounded_func, [IO_TASK_URL for x in range(IO_TOT_NUMBER)])
     executor.shutdown()
 
 def process_cpu_handler(event={}, lambda_context={}):
@@ -51,14 +48,16 @@ def process_cpu_handler(event={}, lambda_context={}):
     executor.shutdown()
 
 def process_io_handler_no_executor(event={}, lambda_context={}):
-    data = ['https://docs.python.org/3/' for x in range(IO_TOT_NUMBER)]
+    data = [IO_TASK_URL for x in range(IO_TOT_NUMBER)]
     pool = Pool(IO_POOL_SIZE)
     pool.map(io_bounded_func, data)
+    pool.close()
 
 def process_cpu_handler_no_executor(event={}, lambda_context={}):
-    data = [CPU_FUNC_NUMBER for x in range(CPU_TOT_NUMBER)]
     pool = Pool(CPU_POOL_SIZE)
+    data = [CPU_FUNC_NUMBER for x in range(CPU_TOT_NUMBER)]
     pool.map(cpu_bounded_func, data)
+    pool.close()
 
 def lambda_handler(event, lambda_context):
     if event.get("io_sequential", "False") == "True":
@@ -88,10 +87,13 @@ def lambda_handler(event, lambda_context):
     
 if __name__ == "__main__":
     count = 1
+    print("*** IO Task Duration", timeit(io_bounded_func, number=count))
+    print("*** CPU Task Duration", timeit(cpu_bounded_func, number=count))
     print("*** IO Task ***")
     print("Sequential", timeit(sequential_io_handler, number=count))
     print("Threaded", timeit(thread_io_handler, number=count))
     print("Multiprocess", timeit(process_io_handler, number=count))
+    print("Multiprocess no executor", timeit(process_io_handler_no_executor, number=count))
     print("*** CPU Task ***")
     print("Sequential", timeit(sequential_cpu_handler, number=count))
     print("Threaded", timeit(thread_cpu_handler, number=count))

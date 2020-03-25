@@ -3,11 +3,8 @@ import logging
 from multiprocessing import Process, Queue
 from threading import current_thread, Thread
 
-logging.basicConfig(level=logging.INFO)
-
 def _run(q):
     while True:
-        logging.info(f"{current_thread().name} {q.qsize()}")
         p = q.get()
         if p is None:
             break
@@ -29,8 +26,6 @@ class Pool:
 
         for a in args:
             self.queue.put(Process(target=func, args=(a, )))
-
-        #self.queue.join()
 
         for i in range(self.max_workers):
             self.queue.put(None)
