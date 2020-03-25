@@ -1,23 +1,11 @@
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
-from random import randint
-from sort import selection_sort as sort
 from timeit import timeit
 from urllib import request
 
+from constants import *
+from sort import selection_sort as sort
+from tasks import cpu_bounded_func, cpu_bounded_func_quick, io_bounded_func
 from pool_thread import Pool
-
-CPU_TOT_NUMBER = 10
-CPU_FUNC_NUMBER = [randint(1, 10000) for x in range(10000)]
-CPU_POOL_SIZE = 4
-IO_TOT_NUMBER = 12
-IO_POOL_SIZE = 4
-IO_TASK_URL = 'https://docs.python.org/3/'
-
-def io_bounded_func(url=IO_TASK_URL):
-    return request.urlopen(url)
-
-def cpu_bounded_func(n=CPU_FUNC_NUMBER):
-    return sort(n)
 
 def sequential_io_handler(event={}, lambda_context={}):
     for url in range(IO_TOT_NUMBER):

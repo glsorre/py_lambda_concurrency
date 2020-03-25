@@ -36,3 +36,82 @@ resource "aws_lambda_function" "py_lambda_concurrency_lambda" {
   memory_size = "2560"
   runtime = "python3.8"
 }
+
+resource "aws_lambda_function" "py_lambda_concurrency_stress_256" {
+  filename      = "py_lambda_concurrency_lambda.zip"
+  function_name = "py_lambda_concurrency_lambda"
+  role          = "${aws_iam_role.py_lambda_concurrency_role.arn}"
+  handler       = "stress.lambda_handler"
+
+  source_code_hash = "${filebase64sha256("py_lambda_concurrency_lambda.zip")}"
+
+  timeout = "900"
+  memory_size = "256"
+  runtime = "python3.8"
+}
+
+resource "aws_lambda_function" "py_lambda_concurrency_stress_768" {
+  filename      = "py_lambda_concurrency_lambda.zip"
+  function_name = "py_lambda_concurrency_lambda"
+  role          = "${aws_iam_role.py_lambda_concurrency_role.arn}"
+  handler       = "stress.lambda_handler"
+
+  source_code_hash = "${filebase64sha256("py_lambda_concurrency_lambda.zip")}"
+
+  timeout = "900"
+  memory_size = "768"
+  runtime = "python3.8"
+}
+
+resource "aws_lambda_function" "py_lambda_concurrency_stress_1280" {
+  filename      = "py_lambda_concurrency_lambda.zip"
+  function_name = "py_lambda_concurrency_lambda"
+  role          = "${aws_iam_role.py_lambda_concurrency_role.arn}"
+  handler       = "stress.lambda_handler"
+
+  source_code_hash = "${filebase64sha256("py_lambda_concurrency_lambda.zip")}"
+
+  timeout = "900"
+  memory_size = "1280"
+  runtime = "python3.8"
+}
+
+resource "aws_lambda_function" "py_lambda_concurrency_stress_1792" {
+  filename      = "py_lambda_concurrency_lambda.zip"
+  function_name = "py_lambda_concurrency_lambda"
+  role          = "${aws_iam_role.py_lambda_concurrency_role.arn}"
+  handler       = "stress.lambda_handler"
+
+  source_code_hash = "${filebase64sha256("py_lambda_concurrency_lambda.zip")}"
+
+  timeout = "900"
+  memory_size = "1792"
+  runtime = "python3.8"
+}
+
+resource "aws_lambda_function" "py_lambda_concurrency_stress_2304" {
+  filename      = "py_lambda_concurrency_lambda.zip"
+  function_name = "py_lambda_concurrency_lambda"
+  role          = "${aws_iam_role.py_lambda_concurrency_role.arn}"
+  handler       = "stress.lambda_handler"
+
+  source_code_hash = "${filebase64sha256("py_lambda_concurrency_lambda.zip")}"
+
+  timeout = "900"
+  memory_size = "2304"
+  runtime = "python3.8"
+}
+
+
+resource "aws_lambda_function" "py_lambda_concurrency_stress_2816" {
+  filename      = "py_lambda_concurrency_lambda.zip"
+  function_name = "py_lambda_concurrency_lambda"
+  role          = "${aws_iam_role.py_lambda_concurrency_role.arn}"
+  handler       = "stress.lambda_handler"
+
+  source_code_hash = "${filebase64sha256("py_lambda_concurrency_lambda.zip")}"
+
+  timeout = "900"
+  memory_size = "2816"
+  runtime = "python3.8"
+}
