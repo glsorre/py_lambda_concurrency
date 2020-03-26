@@ -1,13 +1,16 @@
+from multiprocessing import Manager
 from urllib import request
 
 from constants import *
 from sort import quick_sort, selection_sort
 
+MANAGER = Manager()
+
 def counted(f):
     def wrapped(*args, **kwargs):
-        wrapped.calls += 1
+        wrapped.calls.value += 1
         return f(*args, **kwargs)
-    wrapped.calls = 0
+    wrapped.calls = MANAGER.Value('i', 0)
     return wrapped
 
 @counted

@@ -16,8 +16,7 @@ resource "aws_iam_role" "py_lambda_concurrency_role" {
       "Principal": {
         "Service": "lambda.amazonaws.com"
       },
-      "Effect": "Allow",
-      "Sid": ""
+      "Effect": "Allow"
     }
   ]
 }
@@ -39,7 +38,7 @@ resource "aws_lambda_function" "py_lambda_concurrency_lambda" {
 
 resource "aws_lambda_function" "py_lambda_concurrency_stress_256" {
   filename      = "py_lambda_concurrency_lambda.zip"
-  function_name = "py_lambda_concurrency_lambda"
+  function_name = "py_lambda_concurrency_stress_256"
   role          = "${aws_iam_role.py_lambda_concurrency_role.arn}"
   handler       = "stress.lambda_handler"
 
@@ -52,7 +51,7 @@ resource "aws_lambda_function" "py_lambda_concurrency_stress_256" {
 
 resource "aws_lambda_function" "py_lambda_concurrency_stress_768" {
   filename      = "py_lambda_concurrency_lambda.zip"
-  function_name = "py_lambda_concurrency_lambda"
+  function_name = "py_lambda_concurrency_stress_768"
   role          = "${aws_iam_role.py_lambda_concurrency_role.arn}"
   handler       = "stress.lambda_handler"
 
@@ -65,7 +64,7 @@ resource "aws_lambda_function" "py_lambda_concurrency_stress_768" {
 
 resource "aws_lambda_function" "py_lambda_concurrency_stress_1280" {
   filename      = "py_lambda_concurrency_lambda.zip"
-  function_name = "py_lambda_concurrency_lambda"
+  function_name = "py_lambda_concurrency_stress_1280"
   role          = "${aws_iam_role.py_lambda_concurrency_role.arn}"
   handler       = "stress.lambda_handler"
 
@@ -78,7 +77,7 @@ resource "aws_lambda_function" "py_lambda_concurrency_stress_1280" {
 
 resource "aws_lambda_function" "py_lambda_concurrency_stress_1792" {
   filename      = "py_lambda_concurrency_lambda.zip"
-  function_name = "py_lambda_concurrency_lambda"
+  function_name = "py_lambda_concurrency_stress_1792"
   role          = "${aws_iam_role.py_lambda_concurrency_role.arn}"
   handler       = "stress.lambda_handler"
 
@@ -91,7 +90,7 @@ resource "aws_lambda_function" "py_lambda_concurrency_stress_1792" {
 
 resource "aws_lambda_function" "py_lambda_concurrency_stress_2304" {
   filename      = "py_lambda_concurrency_lambda.zip"
-  function_name = "py_lambda_concurrency_lambda"
+  function_name = "py_lambda_concurrency_stress_2304"
   role          = "${aws_iam_role.py_lambda_concurrency_role.arn}"
   handler       = "stress.lambda_handler"
 
@@ -105,7 +104,7 @@ resource "aws_lambda_function" "py_lambda_concurrency_stress_2304" {
 
 resource "aws_lambda_function" "py_lambda_concurrency_stress_2816" {
   filename      = "py_lambda_concurrency_lambda.zip"
-  function_name = "py_lambda_concurrency_lambda"
+  function_name = "py_lambda_concurrency_stress_2816"
   role          = "${aws_iam_role.py_lambda_concurrency_role.arn}"
   handler       = "stress.lambda_handler"
 

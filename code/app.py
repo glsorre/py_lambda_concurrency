@@ -3,9 +3,8 @@ from timeit import timeit
 from urllib import request
 
 from constants import *
-from sort import selection_sort as sort
-from tasks import cpu_bounded_func, cpu_bounded_func_quick, io_bounded_func
 from pool_thread import Pool
+from tasks import cpu_bounded_func, cpu_bounded_func_quick, io_bounded_func
 
 def sequential_io_handler(event={}, lambda_context={}):
     for url in range(IO_TOT_NUMBER):
