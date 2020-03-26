@@ -13,45 +13,75 @@ RUNS = [
     #     'function_name': 'io_bounded_func|cpu_bounded_func|cpu_bounded_func_quick',
     #     'function_arg': "'https://docs.python.org/3/'"
     # }
+    # {   
+    #     'lambdas':[
+    #         'py_lambda_concurrency_stress_768',
+    #         'py_lambda_concurrency_stress_1280',
+    #         'py_lambda_concurrency_stress_1792',
+    #         'py_lambda_concurrency_stress_2304',
+    #         'py_lambda_concurrency_stress_2816'
+    #     ],
+    #     'executor': 'processpool',
+    #     'pool_size': 'cpu_count',
+    #     'tot_number': 20,
+    #     'function_name': 'cpu_bounded_func',
+    #     'function_arg': "[randint(10, 10000) for x in range(10000)]"
+    # },
+    # {   
+    #     'lambdas':[
+    #         'py_lambda_concurrency_stress_768',
+    #         'py_lambda_concurrency_stress_1280',
+    #         'py_lambda_concurrency_stress_1792',
+    #         'py_lambda_concurrency_stress_2304',
+    #         'py_lambda_concurrency_stress_2816'
+    #     ],
+    #     'executor': 'threadpool',
+    #     'pool_size': 'cpu_count',
+    #     'tot_number': 20,
+    #     'function_name': 'cpu_bounded_func',
+    #     'function_arg': "[randint(10, 10000) for x in range(10000)]"
+    # },
+    # {   
+    #     'lambdas':[
+    #         'py_lambda_concurrency_stress_768',
+    #         'py_lambda_concurrency_stress_1280',
+    #         'py_lambda_concurrency_stress_1792',
+    #         'py_lambda_concurrency_stress_2304',
+    #         'py_lambda_concurrency_stress_2816'
+    #     ],
+    #     'executor': 'sequential',
+    #     'pool_size': 'cpu_count',
+    #     'tot_number': 20,
+    #     'function_name': 'cpu_bounded_func',
+    #     'function_arg': "[randint(10, 10000) for x in range(10000)]"
+    # },
     {   
         'lambdas':[
-            'py_lambda_concurrency_stress_768',
-            'py_lambda_concurrency_stress_1280',
-            'py_lambda_concurrency_stress_1792',
-            'py_lambda_concurrency_stress_2304',
             'py_lambda_concurrency_stress_2816'
         ],
         'executor': 'processpool',
         'pool_size': 'cpu_count',
-        'tot_number': 20,
+        'tot_number': 100,
         'function_name': 'cpu_bounded_func',
         'function_arg': "[randint(10, 10000) for x in range(10000)]"
     },
     {   
         'lambdas':[
-            'py_lambda_concurrency_stress_768',
-            'py_lambda_concurrency_stress_1280',
-            'py_lambda_concurrency_stress_1792',
-            'py_lambda_concurrency_stress_2304',
             'py_lambda_concurrency_stress_2816'
         ],
         'executor': 'threadpool',
         'pool_size': 'cpu_count',
-        'tot_number': 20,
+        'tot_number': 100,
         'function_name': 'cpu_bounded_func',
         'function_arg': "[randint(10, 10000) for x in range(10000)]"
     },
     {   
         'lambdas':[
-            'py_lambda_concurrency_stress_768',
-            'py_lambda_concurrency_stress_1280',
-            'py_lambda_concurrency_stress_1792',
-            'py_lambda_concurrency_stress_2304',
             'py_lambda_concurrency_stress_2816'
         ],
         'executor': 'sequential',
         'pool_size': 'cpu_count',
-        'tot_number': 20,
+        'tot_number': 100,
         'function_name': 'cpu_bounded_func',
         'function_arg': "[randint(10, 10000) for x in range(10000)]"
     }
@@ -78,11 +108,11 @@ if __name__ == "__main__":
                     'function_arg': r['function_arg']
                 })
             )
-            result = response['Payload'].read().decode()
+            result = eval(response['Payload'].read().decode())
             result['lambda'] = l
             results.append(result)
 
-    print(results)
+    print([i['final_time'] for i in results])
 
     with open('stress_data.pickle', 'wb') as f:
         pickle.dump(results, f)
