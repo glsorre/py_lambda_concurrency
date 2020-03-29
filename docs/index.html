@@ -19,9 +19,9 @@
                     <textarea data-template>
                         ### Me
                 
-                        - UI Engineer at hotels.com
-                        - Indie Developer and Blogger at rightright.me
-                        - @glsorre on github and twitter
+                        - UI Engineer at [hotels.com](https://hotels.com)
+                        - Indie Developer and Blogger at [rightright.me](https://rightright.me)
+                        - @glsorre on [github](https://github.com/glsorre) and [twitter](https://twitter.com/glsorre)
                     </textarea>
                 </section>
                 <section data-markdown>
@@ -37,67 +37,36 @@
                 </section>
                 <section data-markdown>
                     <textarea data-template>
-                        #### AWS lambdas
+                        ### AWS lambdas
 
                         > lets you run code without provisioning or managing servers
-
-                        serverless
+                        - 15 minutes limit
+                        - scalable
+                        - python first-citizen
+                        - performance grow with memory assigned
                     </textarea>
                 </section>
                 <section data-markdown>
                     <textarea data-template>
-                        #### AWS lambdas
-
-                        15 minutes limit
-                    </textarea>
-                </section>
-                <section data-markdown>
-                    <textarea data-template>
-                        #### AWS lambdas
-
-                        scalable
-                    </textarea>
-                </section>
-                <section data-markdown>
-                    <textarea data-template>
-                        #### AWS lambdas
-
-                        python first-citizen
-                    </textarea>
-                </section>
-                <section data-markdown>
-                    <textarea data-template>
-                        #### AWS lambdas
-
-                        performance grow with memory assigned
-                    </textarea>
-                </section>
-                <section data-markdown>
-                    <textarea data-template>
-                        #### Tasks
+                        ### Tasks: CPU and I/O bounded
 
                         > a task is CPU bound if it would go faster if the CPU were faster
-                    </textarea>
-                </section>
-                <section data-markdown>
-                    <textarea data-template>
-                        #### Tasks
 
                         > a task is I/O bound if it would go faster if the I/O subsystem was faster
                     </textarea>
                 </section>
                 <section data-markdown>
                     <textarea data-template>
-                        #### Tasks
+                        ### Tasks: big O
 
-                        $$ O(n^2) $$ selection sort
+                        $$ O(n^2) $$ &rarr; selection sort
 
-                        $$ O(\log{}n) $$ quick sort
+                        $$ O(\log{}n) $$ &rarr; quick sort
                     </textarea>
                 </section>
                 <section data-markdown>
                     <textarea data-template>
-                        #### Python Concurrency
+                        ### Python Concurrency
 
                         - threads
                         - processes
@@ -106,68 +75,40 @@
                 </section>
                 <section data-markdown>
                     <textarea data-template>
-                        #### Python Concurrency
+                        ### Python Concurrency
 
                         ##### threads
                         
-                        lightweight
+                        - lightweight
+                        - shares memory
+                        - inside the GIL
                     </textarea>
                 </section>
                 <section data-markdown>
                     <textarea data-template>
-                        #### Python Concurrency
-
-                        ##### threads
-                        
-                        shares memory
-                    </textarea>
-                </section>
-                <section data-markdown>
-                    <textarea data-template>
-                        #### Python Concurrency
-
-                        ##### threads
-                        
-                        inside the GIL
-                    </textarea>
-                </section>
-                <section data-markdown>
-                    <textarea data-template>
-                        #### Python Concurrency
+                        ### Python Concurrency
 
                         ##### processes
                         
-                        separate memory space
+                        - separate memory space
+                        - can use multiple CPU cores
+                        - outside the GIL
                     </textarea>
                 </section>
                 <section data-markdown>
                     <textarea data-template>
-                        #### Python Concurrency
+                        ### Python Concurrency
 
-                        ##### processes
-                        
-                        can use multiple CPU cores
-                    </textarea>
-                </section>
-                <section data-markdown>
-                    <textarea data-template>
-                        #### Python Concurrency
-
-                        ##### processes
-                        
-                        outside the GIL
-                    </textarea>
-                </section>
-                <section data-markdown>
-                    <textarea data-template>
-                        #### Python Concurrency
+                        ##### summary
 
                         ![thread](assets/thread.png "Thread")![process](assets/process.png "Process")
                     </textarea>
                 </section>
                 <section data-markdown>
                     <textarea data-template>
-                        #### Python Concurrency
+                        ### Python Concurrency
+
+                        ##### batteries included
 
                         concurrent.futures:
                         - ThreadPoolExecutor
@@ -222,9 +163,9 @@ class Pool:
                     <textarea data-template>
                         #### Tasks Tested
 
-                        - selection sort
-                        - quick sort
-                        - url get
+                        - **selection sort** &rarr; cpu_bounded_func
+                        - **quick sort** &rarr; cpu_bounded_func_quick
+                        - **url get** &rarr; io_bounded_func
                         
                     </textarea>
                 </section>
@@ -240,6 +181,47 @@ class Pool:
                         #### Results
 
                         ![thread](assets/cpu_bounded_func_tot_number.png "Thread")
+                    </textarea>
+                </section>
+                <section data-markdown>
+                    <textarea data-template>
+                        #### Results
+
+                        ![thread](assets/io_bounded_func_memory.png "Thread")
+                    </textarea>
+                </section>
+                <section data-markdown>
+                    <textarea data-template>
+                        #### Results
+
+                        ![thread](assets/io_bounded_func_tot_number.png "Thread")
+                    </textarea>
+                </section>
+                <section data-markdown>
+                    <textarea data-template>
+                        #### Results
+
+                        ![thread](assets/cpu_bounded_func_quick_memory.png "Thread")
+                    </textarea>
+                </section>
+                <section data-markdown>
+                    <textarea data-template>
+                        ### Conclusions
+
+                        -
+                    </textarea>
+                </section>
+                <section data-markdown>
+                    <textarea data-template>
+                        ### Thanks
+
+                        [https://github.com/glsorre/py_lambda_concurrency](https://github.com/glsorre/py_lambda_concurrency)
+                    </textarea>
+                </section>
+                <section data-markdown>
+                    <textarea data-template>
+                        ### Questions
+
                     </textarea>
                 </section>
 			</div>

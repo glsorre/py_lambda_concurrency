@@ -47,7 +47,7 @@ def lambda_handler(event, lambda_context):
     results['pool_size'] = pool_size
     results['ops'] = {}
 
-    t = ops_logger(getattr(tasks, function_name), 0, results)
+    #t = ops_logger(getattr(tasks, function_name), 0, results)
 
     if executor == 'sequential':
         for i in range(tot_number):
@@ -62,7 +62,7 @@ def lambda_handler(event, lambda_context):
         pool.map(getattr(tasks, function_name), data)
         pool.close()
 
-    t.join()
+    #t.join()
     results['final_time'] = time() - start_time
     logging.info(f"Total number of calls to function: {getattr(tasks, function_name).calls.value}")
     return results
@@ -72,8 +72,8 @@ if __name__ == "__main__":
         'executor': 'sequential',
         'pool_size': 'cpu_count',
         'tot_number': 100,
-        'function_name': 'cpu_bounded_func',
-        'function_arg': "[randint(10, 10000) for x in range(10000)]"
+        'function_name': 'io_bounded_func',
+        'function_arg': "'https://docs.python.org/3/'"
     }
     start = time()
     results = lambda_handler(event, {})

@@ -13,6 +13,78 @@ RUNS = [
     #     'function_name': 'io_bounded_func|cpu_bounded_func|cpu_bounded_func_quick',
     #     'function_arg': "'https://docs.python.org/3/'"
     # }
+    {   
+        'lambdas':[
+            'py_lambda_concurrency_stress_768',
+            'py_lambda_concurrency_stress_1280',
+            'py_lambda_concurrency_stress_1792',
+            'py_lambda_concurrency_stress_2304',
+            'py_lambda_concurrency_stress_2816'
+        ],
+        'executor': 'processpool',
+        'pool_size': 'cpu_count',
+        'tot_number': 200,
+        'function_name': 'cpu_bounded_func_quick',
+        'function_arg': "[randint(10, 10000) for x in range(10000)]"
+    },
+    {   
+        'lambdas':[
+            'py_lambda_concurrency_stress_768',
+            'py_lambda_concurrency_stress_1280',
+            'py_lambda_concurrency_stress_1792',
+            'py_lambda_concurrency_stress_2304',
+            'py_lambda_concurrency_stress_2816'
+        ],
+        'executor': 'threadpool',
+        'pool_size': 'cpu_count',
+        'tot_number': 200,
+        'function_name': 'cpu_bounded_func_quick',
+        'function_arg': "[randint(10, 10000) for x in range(10000)]"
+    },
+    {   
+        'lambdas':[
+            'py_lambda_concurrency_stress_768',
+            'py_lambda_concurrency_stress_1280',
+            'py_lambda_concurrency_stress_1792',
+            'py_lambda_concurrency_stress_2304',
+            'py_lambda_concurrency_stress_2816'
+        ],
+        'executor': 'sequential',
+        'pool_size': 'cpu_count',
+        'tot_number': 200,
+        'function_name': 'cpu_bounded_func_quick',
+        'function_arg': "[randint(10, 10000) for x in range(10000)]"
+    }
+    # {   
+    #     'lambdas':[
+    #         'py_lambda_concurrency_stress_2816'
+    #     ],
+    #     'executor': 'processpool',
+    #     'pool_size': 'cpu_count',
+    #     'tot_number': 100,
+    #     'function_name': 'cpu_bounded_func',
+    #     'function_arg': "[randint(10, 10000) for x in range(10000)]"
+    # },
+    # {   
+    #     'lambdas':[
+    #         'py_lambda_concurrency_stress_2816'
+    #     ],
+    #     'executor': 'threadpool',
+    #     'pool_size': 'cpu_count',
+    #     'tot_number': 100,
+    #     'function_name': 'cpu_bounded_func',
+    #     'function_arg': "[randint(10, 10000) for x in range(10000)]"
+    # },
+    # {   
+    #     'lambdas':[
+    #         'py_lambda_concurrency_stress_2816'
+    #     ],
+    #     'executor': 'sequential',
+    #     'pool_size': 'cpu_count',
+    #     'tot_number': 100,
+    #     'function_name': 'cpu_bounded_func',
+    #     'function_arg': "[randint(10, 10000) for x in range(10000)]"
+    # }
     # {   
     #     'lambdas':[
     #         'py_lambda_concurrency_stress_768',
@@ -23,9 +95,9 @@ RUNS = [
     #     ],
     #     'executor': 'processpool',
     #     'pool_size': 'cpu_count',
-    #     'tot_number': 20,
-    #     'function_name': 'cpu_bounded_func',
-    #     'function_arg': "[randint(10, 10000) for x in range(10000)]"
+    #     'tot_number': 200,
+    #     'function_name': 'io_bounded_func',
+    #     'function_arg': "'https://docs.python.org/3/'"
     # },
     # {   
     #     'lambdas':[
@@ -37,9 +109,9 @@ RUNS = [
     #     ],
     #     'executor': 'threadpool',
     #     'pool_size': 'cpu_count',
-    #     'tot_number': 20,
-    #     'function_name': 'cpu_bounded_func',
-    #     'function_arg': "[randint(10, 10000) for x in range(10000)]"
+    #     'tot_number': 200,
+    #     'function_name': 'io_bounded_func',
+    #     'function_arg': "'https://docs.python.org/3/'"
     # },
     # {   
     #     'lambdas':[
@@ -51,40 +123,40 @@ RUNS = [
     #     ],
     #     'executor': 'sequential',
     #     'pool_size': 'cpu_count',
-    #     'tot_number': 20,
-    #     'function_name': 'cpu_bounded_func',
-    #     'function_arg': "[randint(10, 10000) for x in range(10000)]"
+    #     'tot_number': 200,
+    #     'function_name': 'io_bounded_func',
+    #     'function_arg': "'https://docs.python.org/3/'"
+    # }
+    # {   
+    #     'lambdas':[
+    #         'py_lambda_concurrency_stress_1792'
+    #     ],
+    #     'executor': 'processpool',
+    #     'pool_size': 'cpu_count',
+    #     'tot_number': 2000,
+    #     'function_name': 'io_bounded_func',
+    #     'function_arg': "'https://docs.python.org/3/'"
     # },
-    {   
-        'lambdas':[
-            'py_lambda_concurrency_stress_2816'
-        ],
-        'executor': 'processpool',
-        'pool_size': 'cpu_count',
-        'tot_number': 100,
-        'function_name': 'cpu_bounded_func',
-        'function_arg': "[randint(10, 10000) for x in range(10000)]"
-    },
-    {   
-        'lambdas':[
-            'py_lambda_concurrency_stress_2816'
-        ],
-        'executor': 'threadpool',
-        'pool_size': 'cpu_count',
-        'tot_number': 100,
-        'function_name': 'cpu_bounded_func',
-        'function_arg': "[randint(10, 10000) for x in range(10000)]"
-    },
-    {   
-        'lambdas':[
-            'py_lambda_concurrency_stress_2816'
-        ],
-        'executor': 'sequential',
-        'pool_size': 'cpu_count',
-        'tot_number': 100,
-        'function_name': 'cpu_bounded_func',
-        'function_arg': "[randint(10, 10000) for x in range(10000)]"
-    }
+    # {   
+    #     'lambdas':[
+    #         'py_lambda_concurrency_stress_1792'
+    #     ],
+    #     'executor': 'threadpool',
+    #     'pool_size': 'cpu_count',
+    #     'tot_number': 2000,
+    #     'function_name': 'io_bounded_func',
+    #     'function_arg': "'https://docs.python.org/3/'"
+    # },
+    # {   
+    #     'lambdas':[
+    #         'py_lambda_concurrency_stress_1792'
+    #     ],
+    #     'executor': 'sequential',
+    #     'pool_size': 'cpu_count',
+    #     'tot_number': 2000,
+    #     'function_name': 'io_bounded_func',
+    #     'function_arg': "'https://docs.python.org/3/'"
+    # }
 ]
 
 if __name__ == "__main__":
@@ -97,6 +169,7 @@ if __name__ == "__main__":
 
     for r in RUNS:
         for l in r['lambdas']:
+            print(r, r['executor'], r['function_name'])
             response = lambda_client.invoke(
                 FunctionName=l,
                 InvocationType='RequestResponse',
