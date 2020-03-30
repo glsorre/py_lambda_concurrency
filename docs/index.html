@@ -10,6 +10,7 @@
 			<div class="slides">
 				<section data-markdown>
                     <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_home.jpg" -->
                         ## Unleash the power of concurrency in AWS lambdas
                 
                         How, when and if use python concurrency in AWS lambdas
@@ -17,6 +18,7 @@
                 </section>
                 <section data-markdown>
                     <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_me.jpg" -->
                         ### Me
                 
                         - UI Engineer at [hotels.com](https://hotels.com)
@@ -26,6 +28,7 @@
                 </section>
                 <section data-markdown>
                     <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_agenda.jpg" -->
                         ### Agenda
                 
                         - introduction to AWS lambdas
@@ -37,6 +40,7 @@
                 </section>
                 <section data-markdown>
                     <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_lambda.png" -->
                         ### AWS lambdas
 
                         > lets you run code without provisioning or managing servers
@@ -48,6 +52,7 @@
                 </section>
                 <section data-markdown>
                     <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_tasks.png" -->
                         ### Tasks: CPU and I/O bounded
 
                         > a task is CPU bound if it would go faster if the CPU were faster
@@ -57,6 +62,7 @@
                 </section>
                 <section data-markdown>
                     <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_tasks.png" -->
                         ### Tasks: big O
 
                         $$ O(n^2) $$ &rarr; selection sort
@@ -66,6 +72,7 @@
                 </section>
                 <section data-markdown>
                     <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_concurrency.png" -->
                         ### Python Concurrency
 
                         - threads
@@ -75,10 +82,13 @@
                 </section>
                 <section data-markdown>
                     <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_concurrency.png" -->
                         ### Python Concurrency
 
                         ##### threads
                         
+                        ![thread](assets/thread.png "Thread")
+
                         - lightweight
                         - shares memory
                         - inside the GIL
@@ -86,9 +96,12 @@
                 </section>
                 <section data-markdown>
                     <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_concurrency.png" -->
                         ### Python Concurrency
 
                         ##### processes
+
+                        ![process](assets/process.png "Process")
                         
                         - separate memory space
                         - can use multiple CPU cores
@@ -97,16 +110,7 @@
                 </section>
                 <section data-markdown>
                     <textarea data-template>
-                        ### Python Concurrency
-
-                        ##### summary
-
-                        ![thread](assets/thread.png "Thread")
-                        ![process](assets/process.png "Process")
-                    </textarea>
-                </section>
-                <section data-markdown>
-                    <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_processpool_error.jpg" -->
                         ### Python Concurrency
 
                         ##### batteries included
@@ -118,6 +122,7 @@
                 </section>
                 <section data-markdown>
                     <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_concurrency.png" -->
                         ### Python Concurrency
 
                         ##### my processpool implementation
@@ -164,6 +169,7 @@ class Pool:
                 </section>
                 <section data-markdown>
                     <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_tasks.png" -->
                         ### Tasks Tested
 
                         - **selection sort** &rarr; cpu_bounded_func
@@ -174,13 +180,30 @@ class Pool:
                 </section>
                 <section data-markdown>
                     <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_results.jpg" -->
                         ### Results
+
+                        ##### 20 ops
 
                         ![thread](assets/cpu_bounded_func_memory.png "Thread")
                     </textarea>
                 </section>
                 <section data-markdown>
                     <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_results.jpg" -->
+                        ### Results
+
+                        ##### 20 ops
+
+                        | executor    | memory (mb) | average duration (ms) | executions/month | cost ($) |
+                        |-------------|-------------|-----------------------|------------------|----------|
+                        | sequential  | 1792        | 59000                 | 1000             | 1.72     |
+                        | processpool | 2560        | 39000                 | 1000             | 1.63     |
+                    </textarea>
+                </section>
+                <section data-markdown>
+                    <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_results.jpg" -->
                         ### Results
 
                         ![thread](assets/cpu_bounded_func_tot_number.png "Thread")
@@ -188,13 +211,30 @@ class Pool:
                 </section>
                 <section data-markdown>
                     <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_results.jpg" -->
                         ### Results
+
+                        ##### 200 ops
 
                         ![thread](assets/io_bounded_func_memory.png "Thread")
                     </textarea>
                 </section>
                 <section data-markdown>
                     <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_results.jpg" -->
+                        ### Results
+
+                        ##### 200 ops
+
+                        | executor    | memory (mb) | average duration (ms) | executions/month | cost ($) |
+                        |-------------|-------------|-----------------------|------------------|----------|
+                        | sequential  | 1280        | 3000                  | 10000            | 0.63     |
+                        | threadpool  | 1792        | 2000                  | 10000            | 0.58     |
+                    </textarea>
+                </section>
+                <section data-markdown>
+                    <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_results.jpg" -->
                         ### Results
 
                         ![thread](assets/io_bounded_func_tot_number.png "Thread")
@@ -202,9 +242,21 @@ class Pool:
                 </section>
                 <section data-markdown>
                     <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_results.jpg" -->
                         ### Results
 
                         ![thread](assets/cpu_bounded_func_quick_memory.png "Thread")
+                    </textarea>
+                </section>
+                <section data-markdown>
+                    <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_results.jpg" -->
+                        ### Results
+
+                        | executor    | memory (mb) | average duration (ms) | executions/month | cost ($) |
+                        |-------------|-------------|-----------------------|------------------|----------|
+                        | sequential  | 1792        | 750                   | 10000            | 0.22     |
+                        | processpool | 2560        | 600                   | 10000            | 0.25     |
                     </textarea>
                 </section>
                 <section data-markdown>
@@ -236,6 +288,8 @@ class Pool:
 			Reveal.initialize({
                 // Options which are passed into marked
                 // See https://marked.js.org/#/USING_ADVANCED.md#options
+                width: "100%",
+	            height: "100%",
                 hash: true,
                 progress: true,
 	            slideNumber: true,
