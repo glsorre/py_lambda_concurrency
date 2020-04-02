@@ -14,7 +14,7 @@
 				<section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_home.jpg" -->
-                        ## Unleash the power of concurrency in AWS lambdas
+                        # Unleash the power of concurrency in AWS lambdas
                 
                         How, when and if use python concurrency in AWS lambdas
                     </textarea>
@@ -22,7 +22,7 @@
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_me.jpg" -->
-                        ### Me
+                        ## Me
                 
                         - UI Engineer at [hotels.com](https://hotels.com)
                         - Indie Developer and Blogger at [rightright.me](https://rightright.me)
@@ -32,7 +32,7 @@
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_agenda.jpg" -->
-                        ### Agenda
+                        ## Agenda
                 
                         - introduction to AWS lambdas
                         - tasks: CPU and I/O bounded 
@@ -44,7 +44,7 @@
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_lambda.png" -->
-                        ### AWS lambdas
+                        ## AWS lambdas
 
                         > lets you run code without provisioning or managing servers
                         - 15 minutes limit
@@ -56,7 +56,7 @@
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_tasks.png" -->
-                        ### Tasks: CPU and I/O bounded
+                        ## Tasks: CPU and I/O bounded
 
                         > a task is CPU bound if it would go faster if the CPU were faster
 
@@ -66,7 +66,7 @@
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_tasks.png" -->
-                        ### Tasks: big O
+                        ## Tasks: big O
 
                         $$ O(n^2) $$ &rarr; selection sort
 
@@ -76,7 +76,7 @@
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_concurrency.png" -->
-                        ### Python Concurrency
+                        ## Python Concurrency
 
                         - threads
                         - processes
@@ -86,7 +86,7 @@
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_concurrency.png" -->
-                        ### Python Concurrency
+                        ## Python Concurrency
 
                         ##### threads
                         
@@ -100,7 +100,7 @@
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_concurrency.png" -->
-                        ### Python Concurrency
+                        ## Python Concurrency
 
                         ##### processes
 
@@ -114,7 +114,7 @@
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_processpool_error.jpg" -->
-                        ### Python Concurrency
+                        ## Python Concurrency
 
                         ##### batteries included
 
@@ -126,7 +126,7 @@
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_concurrency.png" -->
-                        ### Python Concurrency
+                        ## Python Concurrency
 
                         ##### my processpool implementation
 
@@ -173,7 +173,26 @@ class Pool:
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_tasks.png" -->
-                        ### Tasks Tested
+                        ## Test
+
+                        ##### Independent Variables
+
+                        | executor    | memory (mb) | task           | number of ops |
+                        |-------------|-------------|----------------|---------------|
+                        | sequential  | 768         | selection sort |               |
+                        | threadpool  | 1280        | quick sort     |               |
+                        | processpool | 1792        | url get        |               |
+                        |             | 2304        |                |               |
+                        |             | 2560        |                |               |
+                        
+                    </textarea>
+                </section>
+                <section data-markdown>
+                    <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_tasks.png" -->
+                        ## Test
+
+                        ##### Tasks
 
                         - **selection sort** &rarr; cpu_bounded_func
                         - **quick sort** &rarr; cpu_bounded_func_quick
@@ -184,7 +203,7 @@ class Pool:
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_results.jpg" -->
-                        ### Results
+                        ## Results
 
                         ##### 20 ops
 
@@ -194,7 +213,7 @@ class Pool:
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_results.jpg" -->
-                        ### Results
+                        ## Results
 
                         ##### 20 ops
 
@@ -207,7 +226,7 @@ class Pool:
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_results.jpg" -->
-                        ### Results
+                        ## Results
 
                         ![thread](assets/cpu_bounded_func_tot_number.png "Thread")
                     </textarea>
@@ -215,7 +234,7 @@ class Pool:
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_results.jpg" -->
-                        ### Results
+                        ## Results
 
                         ##### 200 ops
 
@@ -225,7 +244,7 @@ class Pool:
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_results.jpg" -->
-                        ### Results
+                        ## Results
 
                         ##### 200 ops
 
@@ -238,7 +257,7 @@ class Pool:
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_results.jpg" -->
-                        ### Results
+                        ## Results
 
                         ![thread](assets/io_bounded_func_tot_number.png "Thread")
                     </textarea>
@@ -246,7 +265,7 @@ class Pool:
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_results.jpg" -->
-                        ### Results
+                        ## Results
 
                         ![thread](assets/cpu_bounded_func_quick_memory.png "Thread")
                     </textarea>
@@ -254,7 +273,7 @@ class Pool:
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_results.jpg" -->
-                        ### Results
+                        ## Results
 
                         | executor    | memory (mb) | average duration (ms) | executions/month | cost ($) |
                         |-------------|-------------|-----------------------|------------------|----------|
