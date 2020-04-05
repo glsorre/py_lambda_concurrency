@@ -180,7 +180,7 @@ class Pool:
 
                         | executor    | memory (mb) | task           | number of ops |
                         |-------------|-------------|----------------|---------------|
-                        | sequential  | 768         | selection sort |               |
+                        | sequential  | 768         | selection sort | many          |
                         | threadpool  | 1280        | quick sort     |               |
                         | processpool | 1792        | url get        |               |
                         |             | 2304        |                |               |
@@ -288,8 +288,8 @@ class Pool:
                         ## Conclusions
 
                         - extreme applications
-                        - $$ O(n^2) $$
-                        - bigger than ~1 sec 
+                        - task bigger than ~0.5 sec
+                        - 1792 Mb
                     </textarea>
                 </section>
                 <section data-markdown>
