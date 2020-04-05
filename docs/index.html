@@ -132,7 +132,7 @@
 
                         ```
 from multiprocessing import Process
-from threading import current_thread, Thread
+from threading import Thread
 from queue import Queue
 
 def _run(q):
@@ -167,6 +167,27 @@ class Pool:
     def close(self):
         for t in self.threads:
             t.join()
+                        ```
+                    </textarea>
+                </section>
+
+                <section data-markdown>
+                    <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_concurrency.png" -->
+                        ## Python Concurrency
+
+                        ##### my processpool usage
+
+                        ```
+# My processpool
+pool = Pool(4)
+pool.map(cpu_bounded_func, data)
+pool.close()
+
+# ThreadPoolExecutor
+executor = ThreadPoolExecutor(max_workers=4)
+executor.map(io_bounded_func, data)
+executor.shutdown()
                         ```
                     </textarea>
                 </section>
