@@ -47,9 +47,17 @@
                         ## AWS lambdas
 
                         > lets you run code without provisioning or managing servers
-                        - 15 minutes limit
+                        
                         - scalable
-                        - python first-citizen
+                        - 15 minutes limit
+                    </textarea>
+                </section>
+                <section data-markdown>
+                    <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_lambda.png" -->
+                        ## AWS lambdas
+
+                        - python first-class citizen
                         - performance grow with memory assigned
                     </textarea>
                 </section>
@@ -68,9 +76,9 @@
                         <!-- .slide: data-background-image="assets/bg_tasks.png" -->
                         ## Tasks: big O
 
-                        $$ O(n^2) $$ &rarr; selection sort
+                        $ O(n^2) $ &rarr; **selection sort**
 
-                        $$ O(\log{}n) $$ &rarr; quick sort
+                        $ O(\log{}n) $ &rarr; **quick sort**
                     </textarea>
                 </section>
                 <section data-markdown>
@@ -89,12 +97,23 @@
                         ## Python Concurrency
 
                         ##### threads
-                        
-                        ![thread](assets/thread.png "Thread")
 
-                        - lightweight
-                        - shares memory
-                        - inside the GIL
+                        <div class="cols">
+                            <div class="col1">
+                                <img src="assets/thread.png" />
+                            </div>     
+                            <div class="col2">
+                                <h6>pros</h6>
+                                <ul>
+                                    <li>lightweight</li>
+                                    <li>shares memory</li>
+                                </ul>
+                                <h6>cons</h6>
+                                <ul>
+                                    <li>inside the GIL</li>
+                                </ul>
+                            </div>              
+                        </div>
                     </textarea>
                 </section>
                 <section data-markdown>
@@ -104,11 +123,22 @@
 
                         ##### processes
 
-                        ![process](assets/process.png "Process")
-                        
-                        - separate memory space
-                        - can use multiple CPU cores
-                        - outside the GIL
+                        <div class="cols">
+                            <div class="col1">
+                                <img src="assets/process.png" />
+                            </div>     
+                            <div class="col2">
+                                <h6>pros</h6>
+                                <ul>
+                                    <li>outside the GIL</li>
+                                    <li>can use multiple cores</li>
+                                </ul>
+                                <h6>cons</h6>
+                                <ul>
+                                    <li>does not share memory</li>
+                                </ul>
+                            </div>              
+                        </div>
                     </textarea>
                 </section>
                 <section data-markdown>
@@ -126,11 +156,76 @@
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_concurrency.png" -->
-                        ## Python Concurrency
+                        ## a processpool: the skelethon
+                        ```python
+from multiprocessing import Process
+from threading import Thread
+from queue import Queue
 
-                        ##### my processpool implementation
-
+class Pool:
+    def __init__(self, max_workers):
+        self.max_workers = max_workers
+        self.threads = []
+        self.queue = Queue()
                         ```
+                    </textarea>
+                </section>
+                <section data-markdown>
+                    <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_concurrency.png" -->
+                        ## a processpool: the map method
+                        ```python
+class Pool:
+    def map(self, func, args):
+        for i in range(self.max_workers):
+            t = Thread(target=_run, args=(self.queue, ))
+            t.start()
+            self.threads.append(t)
+
+        for a in args:
+            self.queue.put(Process(target=func, args=(a, )))
+
+        self.queue.join()
+
+        for i in range(self.max_workers):
+            self.queue.put(None)
+                        ```
+                    </textarea>
+                </section>
+                <section data-markdown>
+                    <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_concurrency.png" -->
+                        ## a processpool: the close method
+                        ```python
+class Pool:
+    def close(self):
+        for t in self.threads:
+        t.join()
+                        ```
+                    </textarea>
+                </section>
+            </section>
+            <section data-markdown>
+                <textarea data-template>
+                    <!-- .slide: data-background-image="assets/bg_concurrency.png" -->
+                    ## a processpool: thread func
+                    ```python
+def _run(q):
+    while True:
+        p = q.get()
+        if p is None:
+            break
+        p.start()
+        p._popen.wait()
+        q.task_done()
+                    ```
+                </textarea>
+            </section>
+            <section data-markdown>
+                <textarea data-template>
+                    <!-- .slide: data-background-image="assets/bg_concurrency.png" -->
+                    ## a processpool: putting all together
+                    ```python
 from multiprocessing import Process
 from threading import Thread
 from queue import Queue
@@ -167,18 +262,17 @@ class Pool:
     def close(self):
         for t in self.threads:
             t.join()
-                        ```
-                    </textarea>
-                </section>
-
-                <section data-markdown>
-                    <textarea data-template>
+                    ```
+                </textarea>
+            </section>
+            <section data-markdown>
+                <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_concurrency.png" -->
                         ## Python Concurrency
 
                         ##### my processpool usage
 
-                        ```
+                        ```python
 # My processpool
 pool = Pool(4)
 pool.map(cpu_bounded_func, data)
@@ -226,7 +320,8 @@ executor.shutdown()
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_results.jpg" -->
-                        ## Results
+                        <!-- .slide: data-transition="fade" -->
+                        ## cpu bounded results
 
                         ##### 20 ops
 
@@ -236,7 +331,29 @@ executor.shutdown()
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_results.jpg" -->
-                        ## Results
+                        <!-- .slide: data-transition="fade" -->
+                        ## why threads are worst than sequential
+
+                        ##### 20 ops
+
+                        ![thread](assets/cpu_bounded_func_memory_seq_thread.png "Thread")
+                    </textarea>
+                </section>
+                <section data-markdown>
+                    <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_results.jpg" -->
+                        <!-- .slide: data-transition="fade" -->
+                        ## process pool boost
+
+                        ##### 20 ops
+
+                        ![thread](assets/cpu_bounded_func_memory_process.png "Thread")
+                    </textarea>
+                </section>
+                <section data-markdown>
+                    <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_results.jpg" -->
+                        ## costs
 
                         ##### 20 ops
 
@@ -249,7 +366,7 @@ executor.shutdown()
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_results.jpg" -->
-                        ## Results
+                        ## increasing operations
 
                         ![thread](assets/cpu_bounded_func_tot_number.png "Thread")
                     </textarea>
@@ -257,7 +374,8 @@ executor.shutdown()
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_results.jpg" -->
-                        ## Results
+                        <!-- .slide: data-transition="fade" -->
+                        ## io boundend results
 
                         ##### 200 ops
 
@@ -267,7 +385,29 @@ executor.shutdown()
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_results.jpg" -->
-                        ## Results
+                        <!-- .slide: data-transition="fade" -->
+                        ## threads shine
+
+                        ##### 200 ops
+
+                        ![thread](assets/io_bounded_func_memory_seq_thread.png "Thread")
+                    </textarea>
+                </section>
+                <section data-markdown>
+                    <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_results.jpg" -->
+                        <!-- .slide: data-transition="fade" -->
+                        ## processes are penalized
+
+                        ##### 200 ops
+
+                        ![thread](assets/io_bounded_func_memory_process.png "Thread")
+                    </textarea>
+                </section>
+                <section data-markdown>
+                    <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_results.jpg" -->
+                        ## costs
 
                         ##### 200 ops
 
@@ -280,7 +420,7 @@ executor.shutdown()
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_results.jpg" -->
-                        ## Results
+                        ## increasing operations
 
                         ![thread](assets/io_bounded_func_tot_number.png "Thread")
                     </textarea>
@@ -288,7 +428,7 @@ executor.shutdown()
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_results.jpg" -->
-                        ## Results
+                        ## what happens if O is small
 
                         ![thread](assets/cpu_bounded_func_quick_memory.png "Thread")
                     </textarea>
@@ -296,7 +436,7 @@ executor.shutdown()
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_results.jpg" -->
-                        ## Results
+                        ## costs
 
                         | executor    | memory (mb) | average duration (ms) | executions/month | cost ($) |
                         |-------------|-------------|-----------------------|------------------|----------|
@@ -306,28 +446,49 @@ executor.shutdown()
                 </section>
                 <section data-markdown>
                     <textarea data-template>
-                        ## Conclusions
+                        <!-- .slide: data-background-image="assets/bg_conclusions.jpg" -->
+                        ## conclusions
 
                         - extreme applications
-                        - task bigger than ~0.5 sec
+                        - task bigger than ~0.4 sec
                         - 1792 Mb
                     </textarea>
                 </section>
                 <section data-markdown>
                     <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_conclusions.jpg" -->
                         ## Thanks
 
-                        [https://github.com/glsorre/py_lambda_concurrency](https://github.com/glsorre/py_lambda_concurrency)
+                        - code and slides sources: [https://github.com/glsorre/py_lambda_concurrency](https://github.com/glsorre/py_lambda_concurrency)
+                        - slides: [https://rightright.me/py_lambda_concurrency](https://rightright.me/py_lambda_concurrency)
+                        - github: [https://github.come/glsorre](https://github.come/glsorre)
+                        - twitter: [https://twitter.come/glsorre](https://twitter.come/glsorre)
                     </textarea>
                 </section>
                 <section data-markdown>
                     <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_conclusions.jpg" -->
                         ## Questions?
 
                     </textarea>
                 </section>
 			</div>
         </div>
+        <style>
+            .cols{
+                display: flex;
+            }
+            .col1{
+                flex: 1;
+                text-align: right;
+                margin: 0 10px;
+            }
+            .col2{
+                flex: 1;
+                text-align: left;
+                margin: 0 10px;
+            }
+        </style>
         <script src="https://cdn.rawgit.com/hakimel/reveal.js/3.9.2/js/reveal.js"></script>
         <script src="https://cdn.rawgit.com/hakimel/reveal.js/3.9.2/plugin/markdown/marked.js"></script>
         <script src="https://cdn.rawgit.com/hakimel/reveal.js/3.9.2/plugin/markdown/markdown.js"></script>
