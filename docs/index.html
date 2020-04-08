@@ -14,9 +14,9 @@
 				<section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_home.jpg" -->
-                        # Unleash the power of concurrency in AWS lambdas
+                        # Unleash the power of concurrency in AWS lambda
                 
-                        How, when and if use python concurrency in AWS lambdas
+                        How, when and if use python concurrency in AWS lambda
                     </textarea>
                 </section>
                 <section data-markdown>
@@ -34,7 +34,7 @@
                         <!-- .slide: data-background-image="assets/bg_agenda.jpg" -->
                         ## Agenda
                 
-                        - introduction to AWS lambdas
+                        - introduction to AWS lambda
                         - tasks: CPU and I/O bounded 
                         - python concurrency: threads and processes
                         - code diving
@@ -44,7 +44,7 @@
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_lambda.png" -->
-                        ## AWS lambdas
+                        ## AWS lambda
 
                         > lets you run code without provisioning or managing servers
                         
@@ -55,7 +55,7 @@
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_lambda.png" -->
-                        ## AWS lambdas
+                        ## AWS lambda
 
                         - python first-class citizen
                         - performance grow with memory assigned
@@ -428,9 +428,32 @@ executor.shutdown()
                 <section data-markdown>
                     <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_results.jpg" -->
+                        ## increasing operations
+                        
+                        ![thread](assets/io_bounded_func_tot_number.png "Thread")
+                    </textarea>
+                </section>
+                <section data-markdown>
+                    <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_results.jpg" -->
                         ## what happens if O is small
 
                         ![thread](assets/cpu_bounded_func_quick_memory.png "Thread")
+                    </textarea>
+                </section>
+                <section data-markdown>
+                    <textarea data-template>
+                        <!-- .slide: data-background-image="assets/bg_results.jpg" -->
+                        ## cpu_bounded comparison
+                        
+                        <div class="cols">
+                            <div class="col1">
+                                <img src="assets/cpu_bounded_func_quick_memory.png" />
+                            </div>     
+                            <div class="col2">
+                                <img src="assets/cpu_bounded_func_memory.png" />
+                            </div>              
+                        </div>
                     </textarea>
                 </section>
                 <section data-markdown>
