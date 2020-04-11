@@ -48,8 +48,9 @@
 
                         > lets you run code without provisioning or managing servers
                         
+                        - serverless
                         - scalable
-                        - 15 minutes limit
+                        - python first-class citizen
                     </textarea>
                 </section>
                 <section data-markdown>
@@ -57,7 +58,7 @@
                         <!-- .slide: data-background-image="assets/bg_lambda.png" -->
                         ## AWS lambda
 
-                        - python first-class citizen
+                        - 15 minutes limit
                         - performance grow with memory assigned
                     </textarea>
                 </section>
@@ -268,20 +269,24 @@ class Pool:
             <section data-markdown>
                 <textarea data-template>
                         <!-- .slide: data-background-image="assets/bg_concurrency.png" -->
-                        ## Python Concurrency
+                        ## Test
 
-                        ##### my processpool usage
+                        ##### executors' usage
 
                         ```python
-# My processpool
-pool = Pool(4)
-pool.map(cpu_bounded_func, data)
-pool.close()
+# sequential
+for arg in range(len(args)):
+    func(arg)
 
-# ThreadPoolExecutor
+# threadpool
 executor = ThreadPoolExecutor(max_workers=4)
-executor.map(io_bounded_func, data)
+executor.map(func, data)
 executor.shutdown()
+
+# processpool
+pool = Pool(4)
+pool.map(func, data)
+pool.close()
                         ```
                     </textarea>
                 </section>
@@ -415,14 +420,6 @@ executor.shutdown()
                         |-------------|-------------|-----------------------|------------------|----------|
                         | sequential  | 1280        | 3000                  | 10000            | 0.63     |
                         | threadpool  | 1792        | 2000                  | 10000            | 0.58     |
-                    </textarea>
-                </section>
-                <section data-markdown>
-                    <textarea data-template>
-                        <!-- .slide: data-background-image="assets/bg_results.jpg" -->
-                        ## increasing operations
-
-                        ![thread](assets/io_bounded_func_tot_number.png "Thread")
                     </textarea>
                 </section>
                 <section data-markdown>
